@@ -19,3 +19,6 @@ COBRA Toolbox needs to be in the Matlab path.
 A MILP-solver needs to be set for COBRA.
 
 The file "example.m" is a Matlab script that contains an example pipeline. It can be run with simply "example". Note that the script will clear your Matlab workspace.
+
+The E.coli core network used in the example was obtained from
+http://systemsbiology.ucsd.edu/Downloads/EcoliCore
