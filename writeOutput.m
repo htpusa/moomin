@@ -7,7 +7,7 @@ function writeOutput(model, fileName, varargin)
 %	writeOutput(model, fileName, varargin)
 %
 % INPUTS:
-%	model:			input model (COBRA model structure) as given by the function NSDE.m
+%	model:			input model (COBRA model structure) as given by the function moomin.m
 %	filename:		name of the output file
 %
 % OPTIONAL INPUTS
@@ -16,8 +16,9 @@ function writeOutput(model, fileName, varargin)
 %					The options are
 %						'full': a table with additional information about the genes 
 %						'json': a .json file is produced to be used with apps such as Escher
-%						'EC': output is written using EC numbers
 %						'input': only input colours are written
+%					If no type option is given, the output is a simple tab-delimited file
+%						with the reaction IDs and colours only for coloured reactions
 %
 % .. Author: - T.P.
 
@@ -25,7 +26,6 @@ function writeOutput(model, fileName, varargin)
 	nSolution = 1;
 	full = 0;
 	json = 0;
-	EC = 0;
 	input = 0;
 	
 % read optional inputs
@@ -60,11 +60,9 @@ function writeOutput(model, fileName, varargin)
 		end
 	end
 	
-	if EC
-		IDlist = getECnumbers(model);
-	else
-		IDlist = cellfun(@(x) strcat('R_',x), model.rxns,'UniformOutput',false);
-	end
+
+	IDlist = cellfun(@(x) strcat('R_',x), model.rxns,'UniformOutput',false);
+
 
 	inputAsString = coloursAsString(model.inputColours);
 	outputAsString = coloursAsString(model.outputColours(:,nSolution));
@@ -90,8 +88,6 @@ function writeOutput(model, fileName, varargin)
 		model = creategrRulesField(model);
 		GPR = model.grRules;
 		subsystem = model.subSystems;
-		%EC = getECnumbers(model);
-		%EC = EC(sortByWeight);
 		outputTable = table(ID,reactionName,output,input,weights,GPR,subsystem,leadingGenesNames,FC);
 		writetable(outputTable,fileName,'Delimiter','\t');
 	elseif json

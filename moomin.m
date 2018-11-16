@@ -43,6 +43,15 @@ function [model, MILPsolutions, MILPproblem] = moomin(model, expression, varargi
 %							-1	red
 %							-2	reverse red
 %							6	yellow (a priori grey reversible reaction)
+%						Additional fields are:
+%						'inputColours': the colours obtained without any inference
+%						'weights': the reaction weights
+%						'leadingGenes': the gene "responsible" for the colour and score of a reaction
+%						'frequency': how often a reaction appears in an optimal solution
+%						'combined': an attempted consensus between all optimal solutions
+%									if the status differs between solutions, a 7 is entered
+%						'expression': the expression data
+%						
 %	MILPsolutions		outputs of 'solveCobraMILP'
 %	MILPproblem			the final MILP-problem solved (or was attempted to be solved)
 %
