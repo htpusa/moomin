@@ -10,7 +10,7 @@ COBRA is needed. To obtain COBRA and how to use it:
 https://opencobra.github.io/cobratoolbox/stable/
 
 # Usage
-In order to use MOOMIN, you need DE results obtained using Bayesian methods. In order words, for posterior probability of differential expression (PPDE) is needed instead of the more common p-value.
+In order to use MOOMIN, you need DE results obtained using Bayesian methods. In other words, a posterior probability of differential expression (PPDE) is needed instead of the more common p-value.
 You also need a metabolic network of the organism under study. You can read an SBML-file (.xml) using the COBRA-function
 "readSBML" or you can download a Matlab-structure containing a COBRA model directly if one is available.
 
