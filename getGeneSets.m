@@ -1,6 +1,6 @@
 function geneSets = getGeneSets(model)
 
-% auxiliary function for NSDE.m to get gene association as lists of genes from a COBRA model
+% auxiliary function for moomin.m to get gene association as lists of genes from a COBRA model
 
 	nReactions = size(model.rxns,1);
 	geneSets = cell(nReactions,1);
