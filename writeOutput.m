@@ -71,6 +71,7 @@ function writeOutput(model, fileName, varargin)
 		[weights,sortByWeight] = sort(model.weights,'descend');
 		ID = IDlist(sortByWeight);
 		output=model.outputColours(sortByWeight,:);
+		output=output(:,nSolution);
 		input = model.inputColours(sortByWeight);
 		leadingGenes = model.leadingGenes(sortByWeight);
 		leadingGenesNames = {};
@@ -88,7 +89,9 @@ function writeOutput(model, fileName, varargin)
 		model = creategrRulesField(model);
 		GPR = model.grRules;
 		subsystem = model.subSystems;
-		outputTable = table(ID,reactionName,output,input,weights,GPR,subsystem,leadingGenesNames,FC);
+		frequency=model.frequency(sortByWeight);
+		consensus=model.combined(sortByWeight);
+		outputTable = table(ID,reactionName,output,input,frequency,consensus,weights,GPR,subsystem,leadingGenesNames,FC);
 		writetable(outputTable,fileName,'Delimiter','\t');
 	elseif json
 		jsonStr = '{';
