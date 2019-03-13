@@ -87,8 +87,8 @@ function writeOutput(model, fileName, varargin)
 		end
 		reactionName = model.rxnNames(sortByWeight);
 		model = creategrRulesField(model);
-		GPR = model.grRules;
-		subsystem = model.subSystems;
+		GPR = model.grRules(sortByWeight);
+		subsystem = model.subSystems(sortByWeight);
 		frequency=model.frequency(sortByWeight);
 		consensus=model.combined(sortByWeight);
 		outputTable = table(ID,reactionName,output,input,frequency,consensus,weights,GPR,subsystem,leadingGenesNames,FC);
