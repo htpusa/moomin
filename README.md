@@ -5,7 +5,7 @@ It then forms a hypothesis of a metabolic shift, determining for each reaction i
 change. A paper is in preparation describing the theoretical framework.
 
 # Dependencies
-MOOMIN runs in Matlab (developped in R2016a) and relies on the COBRA Toolbox (developped with v2.0, compatible also with v3.0). Additionally, a MILP-solver compatible with
+MOOMIN runs in Matlab (developped in R2016a) and relies on the COBRA Toolbox (developped with v2.0, tested with v3.0). Additionally, a MILP-solver compatible with
 COBRA is needed. To obtain COBRA and how to use it:
 https://opencobra.github.io/cobratoolbox/stable/
 
