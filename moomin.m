@@ -37,11 +37,11 @@ function [model, MILPsolutions, MILPproblem] = moomin(model, expression, varargi
 %						Solutions are in a matrix in a field called 'outputColours' where
 %						every column is an optimal solution and rows correspond to reactions
 %						The colours are coded as
-%							2	reverse green
-%							1	green
+%							2	reverse red
+%							1	red
 %							0	grey
-%							-1	red
-%							-2	reverse red
+%							-1	blue
+%							-2	reverse blue
 %							6	yellow (a priori grey reversible reaction)
 %						Additional fields are:
 %						'inputColours': the colours obtained without any inference
@@ -173,17 +173,17 @@ function [model, MILPsolutions, MILPproblem] = moomin(model, expression, varargi
 		if size(subsystemsUnique,1)<2
 			warning('Using subsystem heuristic but only found 0 or 1 subsystems in the model.');
 		end
-		SSgreen = zeros(size(subsystemsUnique,1),1);
 		SSred = zeros(size(subsystemsUnique,1),1);
+		SSblue = zeros(size(subsystemsUnique,1),1);
 		for reac=1:nReactions
 		   index = find(strcmp(subsystemsUnique,model.subSystems{reac,1}));
 		   if reactionColours(reac)==1
-			   SSgreen(index) = SSgreen(index) + 1;
+			   SSred(index) = SSgreen(index) + 1;
 		   elseif reactionColours(reac)==-1
-			   SSred(index) = SSred(index) + 1;
+			   SSblue(index) = SSred(index) + 1;
 		   end          
 		end
-		SScol = SSgreen+SSred;
+		SScol = SSred+SSblue;
 		for reac=1:nReactions
 			if reactionColours(reac)==0
 				index = find(strcmp(subsystemsUnique,model.subSystems{reac,1}));
