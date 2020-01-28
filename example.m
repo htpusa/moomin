@@ -12,7 +12,8 @@ inactiveGenes = tdfread('example/inactiveGenes.txt');
 inactiveGenes = cellstr(inactiveGenes.Gene);
 
 % remove inactive reactions
-model = removeInactive(model, inactiveGenes);
+inactiveReactions = findRxnsInActiveWithGenes(model, inactiveGenes);
+model = removeRxns(model, inactiveReactions);
 
 % solve for one solution using stoichiometric contraints
 [model_stoich, MILPsolution_stoich, MILPproblem_stoich] = moomin(model, expression);
@@ -21,7 +22,7 @@ model = removeInactive(model, inactiveGenes);
 [model_topo, MILPsolution_topo, MILPproblem_topo] = moomin(model, expression, 'stoichiometry', 0, 'enumerate', 10);
 
 % write the standard output file
-writeOutput(model_stoich, 'example/output_stoich.txt');
+writeMoominOutput(model_stoich, 'example/output_stoich.txt');
 
 % write the standard output for input colours
-writeOutput(model_topo, 'example/input_topo.txt','type','input');
+writeMoominOutput(model_topo, 'example/input_topo.txt','type','input');
