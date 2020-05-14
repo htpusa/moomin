@@ -121,7 +121,7 @@ function [model, MILPsolutions, MILPproblem] = moomin(model, expression, varargi
 	if numel(indInData) == 0
 		warning('It looks like no gene IDs match between the model and the data.');
 	end
-	PPDE = repmat(-1, numel(model.genes), 1);
+	PPDE = repmat(0, numel(model.genes), 1);
 	PPDE(indInModel) = expression.PPDE(indInData);
 	FC = zeros(numel(model.genes), 1);
 	FC(indInModel) = expression.FC(indInData);
