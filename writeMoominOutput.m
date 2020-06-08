@@ -82,8 +82,8 @@ function writeMoominOutput(model, fileName, varargin)
 		for i = 1:size(leadingGeneInds, 1)
 			if leadingGeneInds(i) > 0
 				leadingGene = [leadingGene;...
-					model.expression.GeneID(leadingGeneInds(i), :)];
-				FC = [FC; model.expression.FC(leadingGeneInds(i), 1)];
+					model.genes(leadingGeneInds(i), :)];
+				FC = [FC; model.FC(leadingGeneInds(i), 1)];
 			else
 				leadingGene = [leadingGene; 'NA'];
 				FC = [FC; 'NA'];
