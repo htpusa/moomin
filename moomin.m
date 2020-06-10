@@ -114,8 +114,10 @@ function [model, MILPsolutions, MILPproblem] = moomin(model, expression, varargi
 				end
 			end
 		end
-	end
+    end
 	
+    fprintf('Processing data...\n')
+    
 	% find expression data for the model genes
 	[~, indInData, indInModel] = intersect(expression.GeneID, model.genes);
 	if numel(indInData) == 0
@@ -177,6 +179,7 @@ function [model, MILPsolutions, MILPproblem] = moomin(model, expression, varargi
 
 	% with stoichiometric constraints
 	if useStoichiometry
+        fprintf('Creating MILP with stoichiometric constraints...\n')
 		ub = repmat(max(model.ub), nReactions, 1);
 		lb = repmat(-max(model.ub), nReactions, 1);
 		% impose a priori colours
@@ -224,7 +227,8 @@ function [model, MILPsolutions, MILPproblem] = moomin(model, expression, varargi
 		vartype(nReactions + 1:3 * nReactions) = 'B';
 		
 	% with only topological constraints
-	else
+    else
+        fprintf('Creating MILP with topological constraints...\n')
 		ub = ones(nMetabs + 2 * nReactions, 1);
 		lb = ub - 1;
 		% impose a priori colours
@@ -288,6 +292,7 @@ function [model, MILPsolutions, MILPproblem] = moomin(model, expression, varargi
 	MILPsolutions = {};
 	% loop to enumerate alternative optima
 	while cont
+        fprintf('Solving MILP #%d...', counter)
 		if useStoichiometry
 			solution = solveCobraMILP(MILPproblem, 'timeLimit', solverTimeLimit,...
 				'printLevel', solverPrintLevel, solverParameters);
@@ -298,6 +303,7 @@ function [model, MILPsolutions, MILPproblem] = moomin(model, expression, varargi
 	
 		% write solution into output structure
 		if solution.stat == 1
+            fprintf(' Found solution!\n')
 			outputColours = zeros(nReactions, 1);
 			if useStoichiometry
 				outputColours(solution.int(1:nReactions) > 1e-4) = 1;
@@ -317,9 +323,10 @@ function [model, MILPsolutions, MILPproblem] = moomin(model, expression, varargi
 				end
 			end
 		elseif counter == 1
-			fprintf('\nCould not solve MILP #1. Check solver time limit.\n');
+			warning('Could not solve MILP #1. Check solver time limit.');
 			outputColours = [];
-		else
+        else
+            fprintf(' No optimal solution found.\n')
 			outputColours = [];
 		end
 	
