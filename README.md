@@ -25,3 +25,12 @@ The file "example.m" is a Matlab script that contains an example pipeline. It ca
 
 The E.coli core network used in the example was obtained from
 http://systemsbiology.ucsd.edu/Downloads/EcoliCore
+
+# Tips
+If you are experiencing long running times, try switching off 'stoichiometry'. This should make the MILP easier to solve.
+
+You can export your results in different formats using the `writeMoominOutput` function:
+
+-The option 'full' prints a tab-delimited file with the most information.
+
+-The 'json' option with 'string' off can be used to visualise results using [Escher](https://escher.github.io/#/).
