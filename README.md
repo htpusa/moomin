@@ -1,6 +1,6 @@
 # MOOMIN
 
-Update on 28/01/2020: complete overhaul of codebase to better comply with Cobra Toolbox style.
+Update: MOOMIN is now also available on Julia: https://github.com/htpusa/moominJL
 
 MOOMIN (Mathematical explOration of Omics data on a MetabolIc Network) is a tool for analysing differential expression data. It takes as its input a metabolic network and the results of a DE analysis: a posterior probability of differential expression and a (logarithm of a) fold change for a list of genes.
 It then forms a hypothesis of a metabolic shift, determining for each reaction its status as "increased flux",
